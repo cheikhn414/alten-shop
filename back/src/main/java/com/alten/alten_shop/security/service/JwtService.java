@@ -2,7 +2,6 @@ package com.alten.alten_shop.security.service;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +16,7 @@ public class JwtService {
 
     private static final long EXPIRATION_MS = 1000 * 60 * 60; // 1 heure
 
-    @Value("${jwt.secret}")
-    private String SECRET;
-
-    private final Key secretKey = Keys.hmacShaKeyFor(SECRET.getBytes());
+    private final Key secretKey = Keys.hmacShaKeyFor("eFBxOTNGa2Y3WXNVMm5MWkJkQzR2UnRNSGdXb2U1cUpK".getBytes());
 
     public String generateToken(String email) {
         return buildToken(new HashMap<>(), email);
