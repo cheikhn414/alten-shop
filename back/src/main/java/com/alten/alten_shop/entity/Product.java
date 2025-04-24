@@ -2,45 +2,53 @@ package com.alten.alten_shop.entity;
 
 import com.alten.alten_shop.util.InventoryStock;
 import jakarta.persistence.*;
-import java.math.BigInteger;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String code;
+    private String code;
 
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
-    String image;
+    private String image;
 
-    String category;
+    private String category;
 
-    Double price;
+    private Integer price;
 
-    Integer quantity;
+    private Integer quantity;
 
-    String internalReference;
+    private String internalReference;
 
-    Integer shellId;
+    private Integer shellId;
 
-    InventoryStock inventoryStatus;
+    private InventoryStock inventoryStatus;
 
-    Integer rating;
+    private Integer rating;
 
-    BigInteger createdAt;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
-    BigInteger updatedAt;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     public Product() {
     }
 
-    public Product(String code, String name, String description, String image, String category, Double price, Integer quantity, String internalReference, Integer shellId, InventoryStock inventoryStatus, Integer rating, BigInteger createdAt, BigInteger updatedAt) {
+    public Product(String code, String name, String description, String image, String category, Integer price, Integer quantity, String internalReference, Integer shellId, InventoryStock inventoryStatus, Integer rating) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -52,11 +60,9 @@ public class Product {
         this.shellId = shellId;
         this.inventoryStatus = inventoryStatus;
         this.rating = rating;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
-    public Product(Long id, String code, String name, String description, String image, String category, Double price, Integer quantity, String internalReference, Integer shellId, InventoryStock inventoryStatus, Integer rating, BigInteger createdAt, BigInteger updatedAt) {
+    public Product(Long id, String code, String name, String description, String image, String category, Integer price, Integer quantity, String internalReference, Integer shellId, InventoryStock inventoryStatus, Integer rating) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -69,8 +75,6 @@ public class Product {
         this.shellId = shellId;
         this.inventoryStatus = inventoryStatus;
         this.rating = rating;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -121,11 +125,11 @@ public class Product {
         this.category = category;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
@@ -169,19 +173,19 @@ public class Product {
         this.rating = rating;
     }
 
-    public BigInteger getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(BigInteger createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public BigInteger getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(BigInteger updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
