@@ -3,25 +3,22 @@ package com.alten.alten_shop.dto;
 import com.alten.alten_shop.util.InventoryStock;
 import com.alten.alten_shop.entity.Product;
 
-import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 public record ProductRequest(
-        Long id,
         String code,
         String name,
         String description,
         String image,
         String category,
-        Double price,
+        Integer price,
         Integer quantity,
         String internalReference,
         Integer shellId,
         InventoryStock inventoryStatus,
-        Integer rating,
-        BigInteger createdAt,
-        BigInteger updatedAt
+        Integer rating
 ) {
     public Product toEntity() {
-        return new Product(id(), code(), name(), description(), image(), category(), price(), quantity(), internalReference(), shellId(), inventoryStatus(), rating(), createdAt(), updatedAt());
+        return new Product(code(), name(), description(), image(), category(), price(), 0, internalReference(), shellId(), inventoryStatus(), rating());
     }
 }
