@@ -1,5 +1,6 @@
 package com.alten.alten_shop.service;
 
+import com.alten.alten_shop.dto.ProductRequest;
 import com.alten.alten_shop.entity.Product;
 import org.springframework.stereotype.Service;
 import com.alten.alten_shop.repository.ProductRepository;
