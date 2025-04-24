@@ -4,19 +4,22 @@ import com.alten.alten_shop.dto.UserRequest;
 import com.alten.alten_shop.dto.UserResponse;
 import com.alten.alten_shop.entity.User;
 import com.alten.alten_shop.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserResponse register(UserRequest userRequest) {
         User user = userRequest.toEntity();
-        user.setPassword(user.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
 
