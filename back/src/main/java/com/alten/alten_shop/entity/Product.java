@@ -1,11 +1,8 @@
 package com.alten.alten_shop.entity;
 
+import com.alten.alten_shop.util.InventoryStock;
 import jakarta.persistence.*;
 import java.math.BigInteger;
-
-enum InventoryStock {
-    INSTOCK, LOWSTOCK, OUTOFSTOCK;
-}
 
 @Entity
 @Table(name = "products")
