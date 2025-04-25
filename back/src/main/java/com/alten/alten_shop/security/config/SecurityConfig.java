@@ -36,8 +36,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/account", "/token").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products/**").authenticated()
-                        .anyRequest().access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
+                        .requestMatchers(HttpMethod.POST, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
+                        .requestMatchers(HttpMethod.PATCH, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, CustomAuthenticationFilter.class)
                 .addFilter(customAuthFilter);
