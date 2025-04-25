@@ -35,7 +35,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/account", "/token").permitAll()
+                        .requestMatchers(
+                                "/account",
+                                "/token",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
                         .requestMatchers(HttpMethod.PATCH, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
                         .requestMatchers(HttpMethod.DELETE, "/products/**").access((authentication, context) -> customSecurity.checkEmail(authentication.get()))
