@@ -3,8 +3,6 @@ package com.alten.alten_shop.dto;
 import com.alten.alten_shop.util.InventoryStock;
 import com.alten.alten_shop.entity.Product;
 
-import java.time.LocalDateTime;
-
 public record ProductRequest(
         String code,
         String name,
