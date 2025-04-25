@@ -4,7 +4,6 @@ import com.alten.alten_shop.entity.Cart;
 import com.alten.alten_shop.entity.CartItem;
 import com.alten.alten_shop.entity.Product;
 import com.alten.alten_shop.entity.User;
-import com.alten.alten_shop.repository.CartItemRepository;
 import com.alten.alten_shop.repository.CartRepository;
 import com.alten.alten_shop.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -14,12 +13,10 @@ import java.util.Optional;
 @Service
 public class CartService {
     private final CartRepository cartRepository;
-    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
 
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ProductRepository productRepository) {
+    public CartService(CartRepository cartRepository, ProductRepository productRepository) {
         this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
     }
 
