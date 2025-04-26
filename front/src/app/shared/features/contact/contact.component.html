@@ -1,0 +1,27 @@
+<p-card header="Contact" class="block m-2">
+  <p class="text-sm"><span class="text-red-500">*</span> Champ obligatoire</p>
+  <form #form="ngForm" (ngSubmit)="onSend(form)">
+    <div class="form-field">
+      <label for="email">Email<span class="text-red-500">*</span></label>
+      <input pInputText
+             type="email"
+             id="email"
+             name="email"
+             required
+             email>
+    </div>
+    <div class="form-field">
+      <label for="message">Message<span class="text-red-500">*</span></label>
+      <textarea pInputTextarea
+                id="message"
+                name="message"
+                rows="5"
+                cols="30"
+                required>
+        </textarea>
+    </div>
+    <div class="flex justify-content-end">
+      <p-button type="submit" icon="pi pi-send" [disabled]="!form.valid" label="Envoyer" severity="success"/>
+    </div>
+  </form>
+</p-card>

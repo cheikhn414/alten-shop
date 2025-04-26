@@ -1,0 +1,19 @@
+:host ::ng-deep {
+  .p-card-title {
+    text-align: center;
+  }
+
+  .p-inline-message {
+    width: 100%;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+
+  .p-dropdown, .p-inputnumber {
+    width: 100%;
+  }
+}
