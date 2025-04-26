@@ -1,6 +1,6 @@
 <p-card header="Contact" class="block m-2">
   @if (notification.visible()) {
-    <p-message life="5000" [severity]="notification.severity" [text]="notification.message" />
+    <p-message life="3000" [severity]="notification.severity" [text]="notification.message" />
   }
   <p class="text-sm"><span class="text-red-500">*</span> Champ obligatoire</p>
   <form #form="ngForm" (ngSubmit)="onSend(form)">
@@ -21,9 +21,14 @@
                 name="message"
                 rows="5"
                 cols="30"
+                (ngModelChange)="onInputMessageChange($event)"
                 [(ngModel)]="message"
+                [maxlength]="MESSAGE_MAX_SIZE"
                 required>
         </textarea>
+      @if (message) {
+        <span class="text-right">{{ message.length }} / {{ MESSAGE_MAX_SIZE }}</span>
+      }
     </div>
     <div class="flex justify-content-end">
       <p-button type="submit" icon="pi pi-send" [disabled]="!form.valid" label="Envoyer" severity="success"/>
