@@ -50,7 +50,7 @@ import {CartItem} from "../../data-access/cart.model";
               />
             </td>
             <td>{{ item.product.price | currency: 'USD' }}</td>
-            <td><input pInputText type="number" [(ngModel)]="item.product.quantity" min="1" max="100" /></td>
+            <td><input pInputText type="number" [(ngModel)]="item.product.quantity" min="1" max="100"/></td>
             <td>{{ item.product.category }}</td>
             <td>
               <p-rating [(ngModel)]="item.product.rating" [readonly]="true" [cancel]="false"/>

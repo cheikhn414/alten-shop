@@ -53,7 +53,7 @@ export class ContactComponent {
       form.resetForm();
 
     } else {
-      this.showNotification("Une erreur est survenue lors de l'envoie de votre message. Veuillez réessayer plutard." , 'error');
+      this.showNotification("Une erreur est survenue lors de l'envoie de votre message. Veuillez réessayer plutard.", 'error');
 
     }
   }

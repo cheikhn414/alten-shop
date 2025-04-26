@@ -8,13 +8,13 @@ export const APP_ROUTES: Routes = [
     component: HomeComponent,
   },
   {
+    path: "contact",
+    component: ContactComponent,
+  },
+  {
     path: "products",
     loadChildren: () =>
       import("./products/products.routes").then((m) => m.PRODUCTS_ROUTES)
-  },
-  {
-    path: "contact",
-    component: ContactComponent,
   },
   { path: "", redirectTo: "home", pathMatch: "full" },
 ];
