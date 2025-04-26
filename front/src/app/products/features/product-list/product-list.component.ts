@@ -6,6 +6,11 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import {RatingModule} from "primeng/rating";
+import {PaginatorModule} from "primeng/paginator";
+import {CurrencyPipe} from "@angular/common";
+import {TagModule} from "primeng/tag";
+import {getInventoryName, inventoryFunction} from "../../../shared/utils/inventory.function";
 
 const emptyProduct: Product = {
   id: 0,
@@ -29,10 +34,13 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+
+  protected readonly getInventorySeverity = inventoryFunction;
+  protected readonly getInventoryName = getInventoryName;
 
   public readonly products = this.productsService.products;
 

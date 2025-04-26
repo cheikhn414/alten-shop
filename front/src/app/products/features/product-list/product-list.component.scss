@@ -3,3 +3,18 @@
     height: 100%;
     overflow: auto;
 }
+
+:host ::ng-deep {
+  // p-tag
+  .p-tag {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .p-card-content {
+    position: relative;
+  }
+}
