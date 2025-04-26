@@ -56,8 +56,11 @@
                 <ng-template pTemplate="footer">
                     <div class="flex gap-3 mt-1">
                       @if (isProductInCart(product.id)) {
-                        <p-button label="Supprimer du panier" icon="pi pi-cart-minus" [outlined]="true" severity="danger" class="cart-button"
-                                  (onClick)="removeProductToCart(product)"/>
+                        <p-inputGroup>
+                          <input pInputText type="number" [(ngModel)]="product.quantity" [min]="1" [max]="100" class="cart-input" />
+                          <p-button label="Supprimer du panier" icon="pi pi-cart-minus" [outlined]="true" severity="danger" class="cart-button"
+                                    (onClick)="removeProductToCart(product)"/>
+                        </p-inputGroup>
                       } @else {
                         <p-button label="Ajouter au panier" icon="pi pi-cart-plus" [outlined]="true" severity="primary"
                                   (onClick)="addProductToCart(product)"/>

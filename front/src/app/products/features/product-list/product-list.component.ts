@@ -16,6 +16,7 @@ import {CartService} from "../../data-access/cart.service";
 import {MessageService, SelectItem} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {ChipsModule} from "primeng/chips";
+import {InputGroupModule} from "primeng/inputgroup";
 
 const emptyProduct: Product = {
   id: 0,
@@ -47,7 +48,7 @@ const emptyCartItem: CartItem = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule, ToastModule, ChipsModule],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule, ToastModule, ChipsModule, InputGroupModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
@@ -155,9 +156,9 @@ export class ProductListComponent implements OnInit {
 
   addProductToCart(product: Product) {
     const cartItem: CartItem = {
-      product: product,
-      quantity: 1
+      product: product
     };
+    product.quantity = 1;
     this.cartService.addToCart(cartItem);
     this.showToast('Succès', `${product.name} ajouté au panier`, 'success');
   }
