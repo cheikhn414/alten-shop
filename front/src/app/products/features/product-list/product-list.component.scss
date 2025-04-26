@@ -17,4 +17,22 @@
   .p-card-content {
     position: relative;
   }
+
+  .p-dataview .p-dataview-header {
+    border-width: 1px 0 1px 0;
+    margin-top: 16px;
+  }
+
+  .p-inputgroup {
+    width: auto;
+  }
+
+  .cart-input.p-inputtext {
+    width: 64px;
+    padding: 0.25rem 0.65rem;
+  }
+
+  .cart-button .p-button {
+    border-radius: 0 4px 4px 0;
+  }
 }

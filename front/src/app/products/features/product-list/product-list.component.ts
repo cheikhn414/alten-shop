@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from "@angular/core";
+import {Component, OnInit, inject, signal, ViewChild} from "@angular/core";
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
@@ -13,8 +13,9 @@ import {TagModule} from "primeng/tag";
 import {getInventoryName, inventoryFunction} from "../../../shared/utils/inventory.function";
 import {CartItem} from "../../data-access/cart.model";
 import {CartService} from "../../data-access/cart.service";
-import {MessageService} from "primeng/api";
+import {MessageService, SelectItem} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {ChipsModule} from "primeng/chips";
 
 const emptyProduct: Product = {
   id: 0,
@@ -46,7 +47,7 @@ const emptyCartItem: CartItem = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule, ToastModule],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule, ToastModule, ChipsModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
@@ -62,8 +63,53 @@ export class ProductListComponent implements OnInit {
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
 
+  @ViewChild("dv") dataView: any;
+
+  sortOptions!: SelectItem[];
+  filterOptions!: SelectItem[];
+  categoryfilterKey = '';
+  namefilterKey = '';
+  sortOrder!: number;
+  sortField!: string;
+
   ngOnInit() {
     this.productsService.get().subscribe();
+    this.sortOptions = [
+      { label: 'Prix du plus haut au plus bas', value: '!price' },
+      { label: 'Prix du plus bas au plus haut', value: 'price' },
+    ];
+
+    this.filterOptions = [
+      { "label": "Accessories", "value": "Accessories" },
+      { "label": "Fitness",  "value": "Fitness" },
+      { "label": "Clothing",  "value": "Clothing" },
+      { "label": "Electronics",  "value": "Electronics" }
+    ]
+  }
+
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
+
+  onFilterChange(event: any, type: string) {
+    console.log(event);
+    let value;
+    if (type === 'category') {
+      value = event.value;
+      this.namefilterKey = '';
+    } else if (type === 'name') {
+      value = event.target.value;
+      this.categoryfilterKey = '';
+    }
+    this.dataView.filter(value);
   }
 
   public onCreate() {

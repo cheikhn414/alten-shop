@@ -4,7 +4,31 @@
 
 <p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
 
-<p-dataView #dv [value]="products()">
+<p-dataView #dv [value]="products()" [rows]="5" [paginator]="true" [sortField]="sortField" [sortOrder]="sortOrder" filterBy="name,category">
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-between">
+      <div class="sorting p-2">
+        <p-dropdown
+          [options]="sortOptions"
+          placeholder="Trier par prix"
+          (onChange)="onSortChange($event)"
+          styleClass="mr-2 my-2"
+        />
+      </div>
+      <div class="filter p-2">
+        <p-dropdown
+          [options]="filterOptions"
+          [(ngModel)]="categoryfilterKey"
+          placeholder="Filtrer par catégorie"
+          (onChange)="onFilterChange($event, 'category')"
+        />
+        <span class="p-input-icon-left ml-2 my-2">
+          <i class="pi pi-search"></i>
+          <input type="search" pInputText placeholder="Rechercher par name" [(ngModel)]="namefilterKey" (input)="onFilterChange($event, 'name')">
+      </span>
+      </div>
+    </div>
+  </ng-template>
     <ng-template pTemplate="list" let-products>
         @for (product of products; track product) {
             <p-card class="block relative mb-2">
