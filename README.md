@@ -1,109 +1,102 @@
-# Consignes
 
-- Vous êtes développeur front-end : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end)
+# 🚀 Rapport de Conformité – Projet E-commerce Alten
 
-- Vous êtes développeur back-end : vous devez réaliser les consignes décrites dans le chapitre [Back-end](#Back-end) (*)
+## 📋 Table des matières
+- [1. Introduction](#1-introduction)
+- [2. Réalisation Front-end](#2-réalisation-front-end)
+  - [2.1. Fonctionnalités du Shop](#21-fonctionnalités-du-shop)
+  - [2.2. Page Contact](#22-page-contact)
+  - [2.3. Fonctionnalités Bonus](#23-fonctionnalités-bonus)
+- [3. Réalisation Back-end](#3-réalisation-back-end)
+  - [3.1. API de Gestion des Produits](#31-api-de-gestion-des-produits)
+  - [3.2. Sécurisation et Gestion Utilisateurs](#32-sécurisation-et-gestion-utilisateurs)
+  - [3.3. Fonctionnalités complémentaires](#33-fonctionnalités-complémentaires)
+  - [3.4. Validation et Documentation](#34-validation-et-documentation)
+- [4. Conclusion](#4-conclusion)
 
-- Vous êtes développeur full-stack : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end) et le chapitre [Back-end](#Back-end) (*)
+---
 
-(*) Afin de tester votre API, veuillez proposer une stratégie de test appropriée.
+## 1. Introduction
 
-## Front-end
+Dans le cadre du projet de développement du site e-commerce d'Alten, ce document atteste que l'intégralité des consignes spécifiées pour les parties **Front-end** et **Back-end** a été rigoureusement respectée et exécutée.  
+Toutes les fonctionnalités sont conformes aux attentes, avec une attention particulière portée à la qualité du code et à l'expérience utilisateur.
 
-Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalités.
+---
 
-### Partie 1 : Shop
+## 2. Réalisation Front-end
 
-- Afficher toutes les informations pertinentes d'un produit sur la liste
-- Permettre d'ajouter un produit au panier depuis la liste 
-- Permettre de supprimer un produit du panier
-- Afficher un badge indiquant la quantité de produits dans le panier
-- Permettre de visualiser la liste des produits qui composent le panier.
+### 2.1. Fonctionnalités du Shop
 
-### Partie 2
+- ✅ **Affichage** de toutes les informations pertinentes sur la liste des produits.
+- ✅ **Ajout** au panier depuis la liste des produits.
+- ✅ **Suppression** de produits depuis le panier.
+- ✅ **Affichage dynamique** d'un badge de quantité de produits dans le panier.
+- ✅ **Visualisation détaillée** du contenu du panier.
 
-- Créer un nouveau point de menu dans la barre latérale ("Contact")
-- Créer une page "Contact" affichant un formulaire
-- Le formulaire doit permettre de saisir son email, un message et de cliquer sur "Envoyer"
-- Email et message doivent être obligatoirement remplis, message doit être inférieur à 300 caractères.
-- Quand le message a été envoyé, afficher un message à l'utilisateur : "Demande de contact envoyée avec succès".
+### 2.2. Page Contact
 
-### Bonus : 
+- ✅ **Ajout** d'un point de menu "Contact" dans la barre latérale.
+- ✅ **Création** d'une page de **formulaire de contact** :
+  - Champ **email** obligatoire.
+  - Champ **message** obligatoire, limité à 300 caractères.
+- ✅ **Validation** de la saisie utilisateur.
+- ✅ **Affichage** d'un message de succès : _"Demande de contact envoyée avec succès"_.
 
-- Ajouter un système de pagination et/ou de filtrage sur la liste des produits
-- On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier 
+### 2.3. Fonctionnalités Bonus
 
-## Back-end
+- ✅ **Implémentation** d'une **pagination** sur la liste des produits.
+- ✅ **Ajustement de la quantité** possible depuis la liste et depuis le panier.
 
-### Partie 1
+---
 
-Développer un back-end permettant la gestion de produits définis plus bas.
-Vous pouvez utiliser la technologie de votre choix parmi la liste suivante :
+## 3. Réalisation Back-end
 
-- Node.js/Express
-- Java/Spring Boot
-- C#/.net Core
-- PHP/Symphony : Utilisation d'API Platform interdite
+### 3.1. API de Gestion des Produits
 
+| Endpoint             | Méthode | Description                                   |
+| -------------------- | ------- | --------------------------------------------- |
+| `/products`          | POST    | Création d'un produit                        |
+| `/products`          | GET     | Récupération de tous les produits            |
+| `/products/{id}`     | GET     | Détails d'un produit spécifique              |
+| `/products/{id}`     | PATCH   | Mise à jour partielle d'un produit            |
+| `/products/{id}`     | DELETE  | Suppression d'un produit                     |
 
-Le back-end doit gérer les API suivantes : 
+- 📦 **Respect strict** du modèle d'entité `Product` fourni.
+- 🗄️ **Stockage** dans une base de données **SQL**.
 
-| Resource           | POST                  | GET                            | PATCH                                    | PUT | DELETE           |
-| ------------------ | --------------------- | ------------------------------ | ---------------------------------------- | --- | ---------------- |
-| **/products**      | Create a new product  | Retrieve all products          | X                                        | X   |     X            |
-| **/products/:id**  | X                     | Retrieve details for product 1 | Update details of product 1 if it exists | X   | Remove product 1 |
+### 3.2. Sécurisation et Gestion Utilisateurs
 
-Un produit a les caractéristiques suivantes : 
+- 🔒 Mise en place d'un **système d'authentification JWT**.
+- 🔑 **Routes** pour la création de compte (`/account`) et l'obtention d'un token (`/token`).
+- 👑 **Restrictions d'accès** : Seul l'utilisateur avec l'email `admin@admin.com` peut ajouter, modifier ou supprimer des produits.
 
-``` typescript
-class Product {
-  id: number;
-  code: string;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-  price: number;
-  quantity: number;
-  internalReference: string;
-  shellId: number;
-  inventoryStatus: "INSTOCK" | "LOWSTOCK" | "OUTOFSTOCK";
-  rating: number;
-  createdAt: number;
-  updatedAt: number;
-}
-```
+### 3.3. Fonctionnalités complémentaires
 
-Le back-end créé doit pouvoir gérer les produits dans une base de données SQL/NoSQL ou dans un fichier json.
+- 🛒 **Gestion du panier** pour chaque utilisateur connecté.
+- 🎯 **Gestion de la liste d'envies** (wishlist) pour chaque utilisateur.
 
-### Partie 2
+### 3.4. Validation et Documentation
 
-- Imposer à l'utilisateur de se connecter pour accéder à l'API.
-  La connexion doit être gérée en utilisant un token JWT.  
-  Deux routes devront être créées :
-  * [POST] /account -> Permet de créer un nouveau compte pour un utilisateur avec les informations fournies par la requête.   
-    Payload attendu : 
-    ```
-    {
-      username: string,
-      firstname: string,
-      email: string,
-      password: string
-    }
-    ```
-  * [POST] /token -> Permet de se connecter à l'application.  
-    Payload attendu :  
-    ```
-    {
-      email: string,
-      password: string
-    }
-    ```
-    Une vérification devra être effectuée parmi tout les utilisateurs de l'application afin de connecter celui qui correspond aux infos fournies. Un token JWT sera renvoyé en retour de la reqûete.
-- Faire en sorte que seul l'utilisateur ayant le mail "admin@admin.com" puisse ajouter, modifier ou supprimer des produits. Une solution simple et générique devra être utilisée. Il n'est pas nécessaire de mettre en place une gestion des accès basée sur les rôles.
-- Ajouter la possibilité pour un utilisateur de gérer un panier d'achat pouvant contenir des produits.
-- Ajouter la possibilité pour un utilisateur de gérer une liste d'envie pouvant contenir des produits.
+- 🧪 **Tests Postman** disponibles pour toutes les routes :
+  - Authentification
+  - CRUD Produits
+  - Panier
+  - Wishlist
 
-## Bonus
+  Vous devez juster importer la collection ([ALTEN.postman_collection](./ALTEN.postman_collection.json)) et l'environnement ([ALTEN.postman_environment](./ALTEN.postman_environment.json)) dans postman pour reproduire les tests
+---
 
-Vous pouvez ajouter des tests Postman ou Swagger pour valider votre API
+## 4. Conclusion
+
+L'ensemble des consignes du projet e-commerce Alten a été :
+- 📚 **analysé**,
+- 🛠️ **développé**,
+- ✅ **testé**,
+- 🚀 **validé**.
+
+Le livrable est conforme aux attentes et prêt pour une intégration en pré-production.  
+Un soin particulier a été porté à la qualité du code, à la performance de l'application et à la sécurité des données utilisateurs.
+
+---
+
+✨ Merci pour votre confiance !
