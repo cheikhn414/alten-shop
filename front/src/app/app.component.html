@@ -6,7 +6,8 @@
         {{ title }}
     </div>
     <div class="p-toolbar-group-end">
-      <i class="pi pi-shopping-cart mr-2 cursor-pointer" pBadge [value]="cartService.totalCount()" style="font-size: 2rem"></i>
+      <i class="pi pi-shopping-cart mr-2 cursor-pointer" pBadge [value]="cartService.totalCount()" style="font-size: 2rem"
+         (click)="openCart()"></i>
     </div>
 </p-toolbar>
 <p-splitter
@@ -23,3 +24,9 @@
         </div>
     </ng-template>
 </p-splitter>
+
+<p-dialog [(visible)]="isCartDialogVisible"
+          [style]="{ width: '75vw' }"
+          header="Panier">
+  <app-cart/>
+</p-dialog>

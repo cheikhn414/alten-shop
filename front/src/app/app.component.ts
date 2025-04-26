@@ -7,16 +7,23 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PanelMenuComponent } from "./shared/ui/panel-menu/panel-menu.component";
 import {CartService} from "./products/data-access/cart.service";
 import {BadgeModule} from "primeng/badge";
+import {DialogModule} from "primeng/dialog";
+import {CartComponent} from "./products/ui/cart/cart.component";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   standalone: true,
-  imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, BadgeModule],
+  imports: [RouterModule, SplitterModule, ToolbarModule, PanelMenuComponent, BadgeModule, DialogModule, CartComponent],
 })
 export class AppComponent {
   title = "ALTEN SHOP";
 
   readonly cartService = inject(CartService);
+  isCartDialogVisible = false;
+
+  openCart() {
+    this.isCartDialogVisible = true;
+  }
 }
