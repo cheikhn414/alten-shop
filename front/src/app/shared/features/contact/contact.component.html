@@ -1,4 +1,7 @@
 <p-card header="Contact" class="block m-2">
+  @if (notification.visible()) {
+    <p-message life="5000" [severity]="notification.severity" [text]="notification.message" />
+  }
   <p class="text-sm"><span class="text-red-500">*</span> Champ obligatoire</p>
   <form #form="ngForm" (ngSubmit)="onSend(form)">
     <div class="form-field">
@@ -7,6 +10,7 @@
              type="email"
              id="email"
              name="email"
+             [(ngModel)]="email"
              required
              email>
     </div>
@@ -17,6 +21,7 @@
                 name="message"
                 rows="5"
                 cols="30"
+                [(ngModel)]="message"
                 required>
         </textarea>
     </div>
