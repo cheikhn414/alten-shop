@@ -51,8 +51,10 @@ export class ContactComponent {
     if (form.valid && (form.value.email && form.value.message)) {
       this.showNotification('Demande de contact envoyée avec succès', 'success');
       form.resetForm();
+
     } else {
       this.showNotification("Une erreur est survenue lors de l'envoie de votre message. Veuillez réessayer plutard." , 'error');
+
     }
   }
 
