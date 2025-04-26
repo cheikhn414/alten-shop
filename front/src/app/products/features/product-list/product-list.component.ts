@@ -11,6 +11,10 @@ import {PaginatorModule} from "primeng/paginator";
 import {CurrencyPipe} from "@angular/common";
 import {TagModule} from "primeng/tag";
 import {getInventoryName, inventoryFunction} from "../../../shared/utils/inventory.function";
+import {CartItem} from "../../data-access/cart.model";
+import {CartService} from "../../data-access/cart.service";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 const emptyProduct: Product = {
   id: 0,
@@ -29,15 +33,25 @@ const emptyProduct: Product = {
   updatedAt: 0,
 };
 
+const emptyCartItem: CartItem = {
+  id: 0,
+  product: emptyProduct,
+  quantity: 0,
+  createdAt: 0,
+  updatedAt: 0,
+};
+
 @Component({
   selector: "app-product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, RatingModule, PaginatorModule, CurrencyPipe, TagModule, ToastModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
+  private readonly messageService = inject(MessageService);
 
   protected readonly getInventorySeverity = inventoryFunction;
   protected readonly getInventoryName = getInventoryName;
@@ -83,5 +97,19 @@ export class ProductListComponent implements OnInit {
 
   private closeDialog() {
     this.isDialogVisible = false;
+  }
+
+  showToast(summary: string, detail: string, severity: string) {
+    this.messageService.add({severity, summary, detail, life: 3000});
+  }
+
+
+  addProductToCart(product: Product) {
+    const cartItem: CartItem = {
+      product: product,
+      quantity: 1
+    };
+    this.cartService.addToCart(cartItem);
+    this.showToast('Succès', `${product.name} ajouté au panier`, 'success');
   }
 }

@@ -1,3 +1,5 @@
+<p-toast position="bottom-right"/>
+
 <h1 class="text-center">Liste des produits</h1>
 
 <p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
@@ -29,6 +31,8 @@
 
                 <ng-template pTemplate="footer">
                     <div class="flex gap-3 mt-1">
+                      <p-button label="Ajouter au panier" icon="pi pi-cart-plus" [outlined]="true" severity="primary"
+                                (onClick)="addProductToCart(product)"/>
                         <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
                         <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
                     </div>
