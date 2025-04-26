@@ -31,8 +31,13 @@
 
                 <ng-template pTemplate="footer">
                     <div class="flex gap-3 mt-1">
-                      <p-button label="Ajouter au panier" icon="pi pi-cart-plus" [outlined]="true" severity="primary"
-                                (onClick)="addProductToCart(product)"/>
+                      @if (isProductInCart(product.id)) {
+                        <p-button label="Supprimer du panier" icon="pi pi-cart-minus" [outlined]="true" severity="danger" class="cart-button"
+                                  (onClick)="removeProductToCart(product)"/>
+                      } @else {
+                        <p-button label="Ajouter au panier" icon="pi pi-cart-plus" [outlined]="true" severity="primary"
+                                  (onClick)="addProductToCart(product)"/>
+                      }
                         <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
                         <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
                     </div>

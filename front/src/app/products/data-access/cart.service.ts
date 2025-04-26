@@ -19,12 +19,12 @@ import {CartItem} from "./cart.model";
     this._cartItems.update((items) => [...items, cartItem]);
   }
 
-  removeFromCart(cartItemId: number) {
-    this._cartItems.update((items) => items.filter(item => item.id !== cartItemId));
+  removeFromCart(productId: number) {
+    this._cartItems.update((items) => items.filter(item => item.product.id !== productId));
   }
 
-  isInCart(cartItemId: number): boolean {
-    return this._cartItems().some(item => item.id === cartItemId);
+  isInCart(productId: number): boolean {
+    return this._cartItems().some(item => item.product.id === productId);
   }
 
   clearCart() {

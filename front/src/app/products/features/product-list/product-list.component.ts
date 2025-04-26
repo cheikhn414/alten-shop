@@ -103,6 +103,9 @@ export class ProductListComponent implements OnInit {
     this.messageService.add({severity, summary, detail, life: 3000});
   }
 
+  isProductInCart(productId: number) {
+    return this.cartService.isInCart(productId);
+  }
 
   addProductToCart(product: Product) {
     const cartItem: CartItem = {
@@ -111,5 +114,10 @@ export class ProductListComponent implements OnInit {
     };
     this.cartService.addToCart(cartItem);
     this.showToast('Succès', `${product.name} ajouté au panier`, 'success');
+  }
+
+  removeProductToCart(product: Product) {
+    this.cartService.removeFromCart(product.id);
+    this.showToast('Avertissement', `${product.name} supprimé du panier`, 'warn');
   }
 }
